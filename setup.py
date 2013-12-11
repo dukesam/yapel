@@ -9,4 +9,5 @@ setup(
     description='A library for interacting with eve central and CCP APIs',
     install_requires=requirements,
     license='APLv2',
+    test_suite='tests',
 )
