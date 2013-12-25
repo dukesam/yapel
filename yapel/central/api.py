@@ -6,7 +6,7 @@ from yapel.central import parsing
 
 
 EVE_CENTRAL_HOST = 'http://api.eve-central.com'
-URL_ROOT = EVE_CENTRAL_HOST + '/url'
+URL_ROOT = EVE_CENTRAL_HOST + '/api'
 
 
 def _api_get(url, params):

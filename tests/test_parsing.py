@@ -33,7 +33,7 @@ def _build_quick_look_xml(item_id=None, **kwargs):
     return helpers.QUICK_LOOK_TMPL.format(**format_dict)
 
 class TestMarketStatParsing(unittest.TestCase):
-    item_id = '1'
+    item_id = 1
 
     def _get_items(self, item_id=None, **kwargs):
         item_id = item_id or self.item_id

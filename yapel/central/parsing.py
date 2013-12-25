@@ -15,7 +15,7 @@ class MarketstatParser(sax.ContentHandler):
     def startElement(self, name, attrs):
         self.chars = ''
         if name == 'type':
-            self.item = attrs.getValue('id')
+            self.item = int(attrs.getValue('id'))
             self.items[self.item] = {}
         elif name in self.order_elems:
             self.order = name
@@ -65,7 +65,7 @@ class QuicklookParser(sax.ContentHandler):
             self.orders[name] = {}
             self.order_type = name
         elif name == 'order':
-            self.order = attrs.getValue('id')
+            self.order = int(attrs.getValue('id'))
             self.orders[self.order_type][self.order] = {}
         elif name in self.data_elems:
             self.meta = name
