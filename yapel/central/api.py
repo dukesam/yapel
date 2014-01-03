@@ -17,11 +17,11 @@ def _api_get(url, params):
     else:
         return req.text
 
-def market_stat(item_ids, system=None, regions=None, min_quant=None, hours=None):
+
+def raw_market_stat(item_ids, system=None, regions=None, min_quant=None, hours=None):
     item_param = 'typeid=' + '&typeid='.join([str(x) for x in item_ids])
 
-    url = URL_ROOT + '/marketstat?'
-    url += item_param
+    url = URL_ROOT + '/marketstat?{0}'.format(item_param)
 
     if regions:
         regions = [str(x) for x in regions]
@@ -38,9 +38,10 @@ def market_stat(item_ids, system=None, regions=None, min_quant=None, hours=None)
 
     raw_xml = _api_get(url, params)
     items = parsing.MarketstatParser.parse_response(raw_xml)
+
     return items
 
-def quick_look(item_id, system=None, regions=None, min_quant=None, hours=None):
+def raw_quick_look(item_id, system=None, regions=None, min_quant=None, hours=None):
     url = URL_ROOT + '/quicklook'
 
     if regions:
@@ -58,4 +59,5 @@ def quick_look(item_id, system=None, regions=None, min_quant=None, hours=None):
 
     raw_xml = _api_get(url, params)
     orders = parsing.QuicklookParser.parse_response(raw_xml)
+
     return orders

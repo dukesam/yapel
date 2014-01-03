@@ -46,22 +46,22 @@ class TestMarketStatParsing(unittest.TestCase):
         items = self._get_items()[self.item_id]
         for order_type in helpers.MARKET_STAT_ORDERS:
             for node_name in helpers.MARKET_STAT_NODES:
-                self.assertEqual(items[order_type][node_name], -1)
+                self.assertEqual(getattr(items[order_type], node_name), -1)
 
     def test_format_handling(self):
         """Spaces/tabs/newlines should not cause problems with parsing values"""
         items = self._get_items(sell_volume='\n\t 100 \t\n')
-        self.assertEqual(items[self.item_id]['sell']['volume'], 100)
+        self.assertEqual(items[self.item_id]['sell'].volume, 100)
 
     def test_decimal_pasing(self):
         """Deciaml values should make it out unscathed"""
         dec_string = '10.1'
         items = self._get_items(sell_avg=dec_string)
         self.assertEqual(
-            items[self.item_id]['sell']['avg'], decimal.Decimal(dec_string)
+            items[self.item_id]['sell'].avg, decimal.Decimal(dec_string)
         )
 
 class TestQuickLookParsing(unittest.TestCase):
     def test_simple_parsing(self):
         xml_string = _build_quick_look_xml()
-        orders = parsing.QuicklookParser.parse_response(xml_string)
+        parsing.QuicklookParser.parse_response(xml_string)
