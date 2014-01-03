@@ -3,7 +3,15 @@ import decimal
 from xml import sax
 
 class MarketstatParser(sax.ContentHandler):
-    data_elems = ['volume', 'avg', 'max', 'min', 'stddev', 'median', 'percentile']
+    data_elems = [
+        'volume',
+        'avg',
+        'max',
+        'min',
+        'stddev',
+        'median',
+        'percentile'
+    ]
     order_elems = ['buy', 'sell', 'all']
 
     def __init__(self, *args, **kwargs):
@@ -39,7 +47,17 @@ class MarketstatParser(sax.ContentHandler):
         return parser.items
 
 class QuicklookParser(sax.ContentHandler):
-    data_elems = ['region', 'station', 'security', 'range', 'price', 'vol_remain', 'min_volume', 'expires', 'reported_time']
+    data_elems = [
+        'region',
+        'station',
+        'security',
+        'range',
+        'price',
+        'vol_remain',
+        'min_volume',
+        'expires',
+        'reported_time'
+    ]
     order_elems = ['sell_orders', 'buy_orders']
     query_meta = ['item', 'hours', 'minqty']
 
@@ -52,7 +70,7 @@ class QuicklookParser(sax.ContentHandler):
     def _convert_value(self, name, value):
         if name in ['price', 'security']:
             value = decimal.Decimal(value)
-        elif name in ['min_volume', 'vol_remain']:
+        elif name in ['min_volume', 'vol_remain', 'region', 'station']:
             value = int(value)
         elif name == 'expires':
             value = datetime.date(*[int(x) for x in value.split('-')])
